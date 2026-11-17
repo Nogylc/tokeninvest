@@ -1,4 +1,7 @@
 // CAMADA HTTP: rotas REST (JSON). Só traduz HTTP <-> serviços; nenhuma regra de negócio aqui.
+const fs = require("fs");
+const path = require("path");
+const crypto = require("crypto");
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
@@ -9,7 +12,32 @@ function criarApp({ servicos, bancoRouter, origemFrontend }) {
   const { auth, openFinance, investimentos, privacidade } = servicos;
   const app = express();
 
-  app.use(helmet()); // cabeçalhos de segurança HTTP
+  // Site (frontend) já compilado: em produção o próprio backend entrega as telas
+  const pastaSite = path.join(__dirname, "..", "..", "..", "frontend", "dist");
+  const indexHtml = path.join(pastaSite, "index.html");
+  const temSite = fs.existsSync(indexHtml);
+
+  // CSP: libera só o que o site usa. O script inline do index.html (tema claro/escuro)
+  // é liberado pelo hash exato dele, sem precisar de 'unsafe-inline'.
+  const hashesScripts = [];
+  if (temSite) {
+    const html = fs.readFileSync(indexHtml, "utf8");
+    for (const [, codigo] of html.matchAll(/<script>([\s\S]*?)<\/script>/g)) {
+      hashesScripts.push(`'sha256-${crypto.createHash("sha256").update(codigo).digest("base64")}'`);
+    }
+  }
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          "script-src": ["'self'", ...hashesScripts],
+          "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+          "font-src": ["'self'", "https://fonts.gstatic.com", "data:"],
+          "img-src": ["'self'", "data:"],
+        },
+      },
+    })
+  ); // cabeçalhos de segurança HTTP
   app.use(cors({ origin: origemFrontend })); // só o nosso frontend pode chamar a API
   app.use(express.json({ limit: "20kb" }));
 
@@ -66,6 +94,15 @@ function criarApp({ servicos, bancoRouter, origemFrontend }) {
 
   // ---------- Banco simulado (outra instituição) ----------
   app.use("/banco-simulado/api", bancoRouter);
+
+  // Rota de API inexistente: sempre JSON
+  app.use(["/api", "/banco-simulado/api"], (req, res) => res.status(404).json({ erro: "Rota não encontrada." }));
+
+  // Site: arquivos estáticos + fallback de SPA (React Router cuida das rotas no navegador)
+  if (temSite) {
+    app.use(express.static(pastaSite, { index: false, maxAge: "1h" }));
+    app.get("*", (req, res) => res.sendFile(indexHtml));
+  }
 
   app.use((req, res) => res.status(404).json({ erro: "Rota não encontrada." }));
 
