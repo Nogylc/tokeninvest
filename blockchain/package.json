@@ -1,0 +1,20 @@
+{
+  "name": "tokeninvest-blockchain",
+  "version": "1.0.0",
+  "description": "Contratos inteligentes do TokenInvest (DREX simulado + ativo tokenizado)",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "compilar": "node scripts/compilar.js",
+    "test": "node scripts/compilar.js && node --test test/*.test.js"
+  },
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "ethers": "^6.17.0",
+    "hardhat": "^2.29.2",
+    "solc": "0.8.24"
+  }
+}
