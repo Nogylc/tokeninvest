@@ -3,6 +3,9 @@
 **MVP de investimentos tokenizados com Open Finance e DREX simulado**
 Disciplina: Tecnologia Bancária (ECP6NA) · AP1 – 2º Bimestre
 
+**Aplicação publicada:** https://tokeninvest.onrender.com  
+**Conta de demonstração:** `demo@tokeninvest.com.br` / `Demo@2026` (Banco Rio simulado: senha `banco123`)
+
 ---
 
 ## 1. Informações do projeto
