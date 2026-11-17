@@ -1,0 +1,20 @@
+{
+  "name": "tokeninvest-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "API REST do TokenInvest (Open Finance simulado, JWT, LGPD, integração com a blockchain)",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "tokeninvest-blockchain": "1.0.0",
+    "sql.js": "^1.13.0"
+  }
+}

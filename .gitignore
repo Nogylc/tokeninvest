@@ -1,0 +1,8 @@
+node_modules/
+dist/
+blockchain/artifacts/
+blockchain/cache/
+backend/data/
+.env
+*.log
+.DS_Store

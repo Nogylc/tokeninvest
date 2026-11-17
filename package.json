@@ -1,0 +1,20 @@
+{
+  "name": "tokeninvest",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TokenInvest - MVP de investimentos tokenizados com Open Finance e DREX simulado",
+  "workspaces": [
+    "blockchain",
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "compilar": "npm run compilar -w blockchain",
+    "dev": "npm run compilar && concurrently -n API,WEB -c blue,green \"npm run start -w backend\" \"npm run dev -w frontend\"",
+    "test": "npm test -w blockchain && npm test -w backend",
+    "resetar-dados": "node -e \"require('fs').rmSync('backend/data',{recursive:true,force:true});console.log('backend/data/ apagado: o próximo start começa do zero.')\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
