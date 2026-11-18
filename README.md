@@ -6,6 +6,11 @@ Disciplina: Tecnologia Bancária (ECP6NA) · AP1 – 2º Bimestre
 **Aplicação publicada:** https://tokeninvest.onrender.com  
 **Conta de demonstração:** `demo@tokeninvest.com.br` / `Demo@2026` (Banco Rio simulado: senha `banco123`)
 
+<p align="center">
+  <a href="https://tokeninvest.onrender.com"><img src="docs/qrcode-site.svg" width="200" alt="QR code para abrir o TokenInvest"></a><br>
+  <sub>Aponte a câmera do celular para abrir o site</sub>
+</p>
+
 ---
 
 ## 1. Informações do projeto
