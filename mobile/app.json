@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "TokenInvest",
+    "slug": "tokeninvest-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/favicon-escuro.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#ffffff",
+        "foregroundImage": "./assets/favicon-escuro.png"
+      },
+      "package": "com.tokeninvest.mobile"
+    },
+    "web": {
+      "favicon": "./assets/favicon-escuro.png"
+    },
+    "plugins": [
+      "expo-secure-store",
+      "expo-font"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "api": "https://tokeninvest.onrender.com",
+  "executadoEm": "2026-11-18T13:18:05.598Z",
+  "etapas": [
+    "API publicada acessível",
+    "Cadastro com CPF válido",
+    "Login e perfil",
+    "Consentimento e pedido do Banco Rio",
+    "Autenticação, retorno PKCE e confirmação",
+    "Depósito em DREX",
+    "Compra e extrato on-chain",
+    "Venda e resgate",
+    "Exportação LGPD",
+    "Revogação",
+    "Exclusão da conta temporária"
+  ],
+  "resultado": "aprovado",
+  "observacao": "Cliente real do mobile executado em Node, armazenamento de teste em memória. Não substitui teste visual no dispositivo."
+}

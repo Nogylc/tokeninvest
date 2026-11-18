@@ -326,3 +326,39 @@ tokeninvest/
 └── frontend/
     └── src/{api,dominio,paginas,componentes}
 ```
+
+
+## App mobile
+
+O app Expo/React Native em `mobile/` consome a **mesma API REST do site**, publicada em `https://tokeninvest.onrender.com`. Não precisa subir backend ou blockchain localmente. A URL fica em `mobile/src/config.js`.
+
+Instale e execute a partir da pasta independente do app (não é um workspace da raiz):
+
+```powershell
+cd mobile
+npm install
+npx expo start
+```
+
+- **Android Studio/emulador:** abra um dispositivo no Device Manager e pressione `a` no terminal do Expo. O Expo abre/instala o Expo Go compatível. Também é possível usar `npm run android`.
+- **Celular:** instale o Expo Go compatível com o SDK indicado em `mobile/package.json` e leia o QR code. Se o celular não estiver na mesma rede, execute `npx expo start --tunnel` (aceite instalar o suporte de túnel, se solicitado).
+- Tema segue o sistema. O botão de sol/lua alterna manualmente; pressione e segure para voltar ao tema do sistema.
+
+Arquitetura: `src/telas/` apresenta os dados, `src/dominio/` formata valores/status, e somente `src/api/cliente.js` faz fetch. O JWT usa SecureStore e é removido em respostas 401. As três etapas do Open Finance, incluindo o Banco Rio simulado, acontecem dentro do app; nenhuma senha bancária é persistida. Em Privacidade, “Baixar meus dados” abre o JSON para leitura e cópia.
+
+Verificação:
+
+```powershell
+cd mobile
+npm test
+npx expo install --check
+npm run lint
+npm run typecheck
+npx expo export --platform android --output-dir dist-validacao
+```
+
+O teste de integração abaixo **cria uma conta temporária e executa operações simuladas na API publicada**, incluindo cadastro, Open Finance, depósito, compra, extrato, venda, resgate, exportação, revogação e exclusão dessa mesma conta. Não usa uma conta existente. Resultado em `mobile/validacao-api.json`; o teste do cliente em Node não substitui a verificação visual no dispositivo.
+
+```powershell
+npm run test:api-publicada -- --executar
+```
